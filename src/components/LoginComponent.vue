@@ -1,11 +1,12 @@
 <template>
   <form @submit.prevent="handleSubmit()">
     <h1>{{ title }}</h1>
-    <div class="login-fields">
-      <CustomInput v-model="form.email" :label="emailLabel" />
-    </div>
-    <div class="login-fields">
-      <CustomInput v-model="form.password" :label="passwordLabel" />
+    <div v-for="(input, i) in inputs" :key="i" class="login-fields">
+      <CustomInput
+        v-model="input.value"
+        :label="input.label"
+        :type="input.type"
+      />
     </div>
     <button>Log in</button>
   </form>
@@ -23,12 +24,18 @@ export default defineComponent({
   data() {
     return {
       title: "Login Form",
-      emailLabel: "Email",
-      passwordLabel: "Password",
-      form: {
-        email: "",
-        password: "Use letters and numbers",
-      },
+      inputs: [
+        {
+          label: "Email",
+          value: "",
+          type: "email",
+        },
+        {
+          label: "Password",
+          value: "",
+          type: "password",
+        },
+      ],
     };
   },
 
@@ -36,9 +43,9 @@ export default defineComponent({
     handleSubmit(): void {
       console.log(
         'Submitted {Email="' +
-          this.form.email +
+          this.inputs[0].value +
           '", Password="' +
-          this.form.password +
+          this.inputs[1].value +
           '"}'
       );
     },

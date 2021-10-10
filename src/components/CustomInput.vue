@@ -5,7 +5,7 @@
     </label>
   </div>
   <div>
-    <input type="text" v-model="inputValue" />
+    <input :type="type" v-model="inputValue" />
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "CustomInput",
 
-  props: ["label", "modelValue"],
+  props: ["label", "type", "modelValue"],
 
   data() {
     return {
@@ -29,8 +29,7 @@ export default defineComponent({
         return this.modelValue;
       },
       set(newValue: string) {
-        console.log(this.label + ": " + newValue);
-        this.$emit('update:modelValue', newValue)
+        this.$emit("update:modelValue", newValue);
       },
     },
   },
